@@ -1,0 +1,10 @@
+server:
+  port: 8090
+
+msp:
+  host-url: http://localhost:7700
+  api-key: meili_master_key
+  class-with-index: true
+  use-class-name-as-default: false
+  auto-update-settings-of-index: true
+  auto-update-primary-key-of-index: true

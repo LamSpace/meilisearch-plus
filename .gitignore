@@ -1,0 +1,8 @@
+.idea
+
+meili_data
+
+msp-core/target
+msp-spring-boot-autoconfigure/target
+msp-spring-boot-starter/target
+msp-spring-boot-test/target
