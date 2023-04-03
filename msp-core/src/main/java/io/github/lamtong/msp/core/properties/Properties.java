@@ -53,6 +53,11 @@ public final class Properties {
      */
     private boolean autoUpdateSettingsOfIndex = true;
 
+    /**
+     * Synchronize operations to {@link com.meilisearch.sdk.Index} or not.
+     */
+    private boolean synchronizeOperations = false;
+
     private Properties() {
     }
 
@@ -90,6 +95,14 @@ public final class Properties {
 
     public void setAutoUpdateSettingsOfIndex(boolean autoUpdateSettingsOfIndex) {
         this.autoUpdateSettingsOfIndex = autoUpdateSettingsOfIndex;
+    }
+
+    public boolean isSynchronizeOperations() {
+        return synchronizeOperations;
+    }
+
+    public void setSynchronizeOperations(boolean synchronizeOperations) {
+        this.synchronizeOperations = synchronizeOperations;
     }
 
 }

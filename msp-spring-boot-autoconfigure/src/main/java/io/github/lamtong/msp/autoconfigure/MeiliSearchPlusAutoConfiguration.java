@@ -106,6 +106,7 @@ public class MeiliSearchPlusAutoConfiguration implements ApplicationContextAware
         prop.setUseClassNameAsDefault(this.properties.isUseClassNameAsDefault());
         prop.setAutoUpdateSettingsOfIndex(this.properties.isAutoUpdateSettingsOfIndex());
         prop.setAutoUpdatePrimaryKeyOfIndex(this.properties.isAutoUpdatePrimaryKeyOfIndex());
+        prop.setSynchronizeOperations(this.properties.isSynchronizeOperations());
         if (logger.isInfoEnabled()) {
             logger.info("Properties has been flushed.");
         }

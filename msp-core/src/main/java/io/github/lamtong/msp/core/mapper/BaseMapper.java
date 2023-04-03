@@ -26,6 +26,7 @@ import com.meilisearch.sdk.model.*;
 import io.github.lamtong.msp.core.context.IndexContext;
 import io.github.lamtong.msp.core.exception.MSPException;
 import io.github.lamtong.msp.core.pagination.Page;
+import io.github.lamtong.msp.core.properties.Properties;
 import io.github.lamtong.msp.core.util.BaseMapperUtils;
 
 import java.io.Serializable;
@@ -82,7 +83,8 @@ public interface BaseMapper<T> {
         Index index = this.getIndex();
         ObjectMapper mapper = new ObjectMapper();
         try {
-            index.addDocuments(mapper.writeValueAsString(entity), primaryKey);
+            TaskInfo taskInfo = index.addDocuments(mapper.writeValueAsString(entity), primaryKey);
+            this.wait(taskInfo);
         } catch (MeilisearchException | JsonProcessingException e) {
             throw new MSPException(e);
         }
@@ -109,7 +111,8 @@ public interface BaseMapper<T> {
         Index index = this.getIndex();
         ObjectMapper mapper = new ObjectMapper();
         try {
-            index.addDocuments(mapper.writeValueAsString(entities));
+            TaskInfo taskInfo = index.addDocuments(mapper.writeValueAsString(entities));
+            this.wait(taskInfo);
         } catch (MeilisearchException | JsonProcessingException e) {
             throw new MSPException(e);
         }
@@ -121,7 +124,8 @@ public interface BaseMapper<T> {
     default void deleteAll() {
         Index index = this.getIndex();
         try {
-            index.deleteAllDocuments();
+            TaskInfo taskInfo = index.deleteAllDocuments();
+            this.wait(taskInfo);
         } catch (MeilisearchException e) {
             throw new MSPException(e);
         }
@@ -136,7 +140,8 @@ public interface BaseMapper<T> {
     default void deleteById(Serializable id) {
         Index index = this.getIndex();
         try {
-            index.deleteDocument(String.valueOf(id));
+            TaskInfo taskInfo = index.deleteDocument(String.valueOf(id));
+            this.wait(taskInfo);
         } catch (MeilisearchException e) {
             throw new MSPException(e);
         }
@@ -152,7 +157,8 @@ public interface BaseMapper<T> {
         Index index = this.getIndex();
         try {
             String id = BaseMapperUtils.getPrimaryKeyValue(entity);
-            index.deleteDocument(id);
+            TaskInfo taskInfo = index.deleteDocument(id);
+            this.wait(taskInfo);
         } catch (MeilisearchException e) {
             throw new MSPException(e);
         }
@@ -177,7 +183,8 @@ public interface BaseMapper<T> {
     default void deleteByIds(Collection<? extends Serializable> ids) {
         Index index = this.getIndex();
         try {
-            index.deleteDocuments(ids.stream().map(String::valueOf).collect(Collectors.toList()));
+            TaskInfo taskInfo = index.deleteDocuments(ids.stream().map(String::valueOf).collect(Collectors.toList()));
+            this.wait(taskInfo);
         } catch (MeilisearchException e) {
             throw new MSPException(e);
         }
@@ -193,7 +200,8 @@ public interface BaseMapper<T> {
         Index index = this.getIndex();
         ObjectMapper mapper = new ObjectMapper();
         try {
-            index.updateDocuments(mapper.writeValueAsString(entity));
+            TaskInfo taskInfo = index.updateDocuments(mapper.writeValueAsString(entity));
+            this.wait(taskInfo);
         } catch (MeilisearchException | JsonProcessingException e) {
             throw new MSPException(e);
         }
@@ -210,7 +218,8 @@ public interface BaseMapper<T> {
         Index index = this.getIndex();
         ObjectMapper mapper = new ObjectMapper();
         try {
-            index.updateDocuments(mapper.writeValueAsString(entity), primaryKey);
+            TaskInfo taskInfo = index.updateDocuments(mapper.writeValueAsString(entity), primaryKey);
+            this.wait(taskInfo);
         } catch (MeilisearchException | JsonProcessingException e) {
             throw new MSPException(e);
         }
@@ -564,7 +573,8 @@ public interface BaseMapper<T> {
     default void updateSettings(Settings settings) {
         Index index = this.getIndex();
         try {
-            index.updateSettings(settings);
+            TaskInfo taskInfo = index.updateSettings(settings);
+            this.wait(taskInfo);
         } catch (MeilisearchException e) {
             throw new MSPException(e);
         }
@@ -578,7 +588,8 @@ public interface BaseMapper<T> {
     default void resetSettings() {
         Index index = this.getIndex();
         try {
-            index.resetSettings();
+            TaskInfo taskInfo = index.resetSettings();
+            this.wait(taskInfo);
         } catch (MeilisearchException e) {
             throw new MSPException(e);
         }
@@ -610,7 +621,8 @@ public interface BaseMapper<T> {
     default void updateRankingRulesSettings(String[] rules) {
         Index index = this.getIndex();
         try {
-            index.updateRankingRulesSettings(rules);
+            TaskInfo taskInfo = index.updateRankingRulesSettings(rules);
+            this.wait(taskInfo);
         } catch (MeilisearchException e) {
             throw new MSPException(e);
         }
@@ -624,7 +636,8 @@ public interface BaseMapper<T> {
     default void resetRankingRulesSettings() {
         Index index = this.getIndex();
         try {
-            index.resetRankingRulesSettings();
+            TaskInfo taskInfo = index.resetRankingRulesSettings();
+            this.wait(taskInfo);
         } catch (MeilisearchException e) {
             throw new MSPException(e);
         }
@@ -656,7 +669,8 @@ public interface BaseMapper<T> {
     default void updateSynonymsSettings(Map<String, String[]> setting) {
         Index index = this.getIndex();
         try {
-            index.updateSynonymsSettings(setting);
+            TaskInfo taskInfo = index.updateSynonymsSettings(setting);
+            this.wait(taskInfo);
         } catch (MeilisearchException e) {
             throw new MSPException(e);
         }
@@ -670,7 +684,8 @@ public interface BaseMapper<T> {
     default void resetSynonymsSettings() {
         Index index = this.getIndex();
         try {
-            index.resetSynonymsSettings();
+            TaskInfo taskInfo = index.resetSynonymsSettings();
+            this.wait(taskInfo);
         } catch (MeilisearchException e) {
             throw new MSPException(e);
         }
@@ -702,7 +717,8 @@ public interface BaseMapper<T> {
     default void updateStopWordsSettings(String[] setting) {
         Index index = this.getIndex();
         try {
-            index.updateStopWordsSettings(setting);
+            TaskInfo taskInfo = index.updateStopWordsSettings(setting);
+            this.wait(taskInfo);
         } catch (MeilisearchException e) {
             throw new MSPException(e);
         }
@@ -716,7 +732,8 @@ public interface BaseMapper<T> {
     default void resetStopWordsSettings() {
         Index index = this.getIndex();
         try {
-            index.resetStopWordsSettings();
+            TaskInfo taskInfo = index.resetStopWordsSettings();
+            this.wait(taskInfo);
         } catch (MeilisearchException e) {
             throw new MSPException(e);
         }
@@ -748,7 +765,8 @@ public interface BaseMapper<T> {
     default void updateSearchableAttributesSettings(String[] setting) {
         Index index = this.getIndex();
         try {
-            index.updateSearchableAttributesSettings(setting);
+            TaskInfo taskInfo = index.updateSearchableAttributesSettings(setting);
+            this.wait(taskInfo);
         } catch (MeilisearchException e) {
             throw new MSPException(e);
         }
@@ -762,7 +780,8 @@ public interface BaseMapper<T> {
     default void resetSearchableAttributesSettings() {
         Index index = this.getIndex();
         try {
-            index.resetSearchableAttributesSettings();
+            TaskInfo taskInfo = index.resetSearchableAttributesSettings();
+            this.wait(taskInfo);
         } catch (MeilisearchException e) {
             throw new MSPException(e);
         }
@@ -794,7 +813,8 @@ public interface BaseMapper<T> {
     default void updateDisplayedAttributesSettings(String[] setting) {
         Index index = this.getIndex();
         try {
-            index.updateDisplayedAttributesSettings(setting);
+            TaskInfo taskInfo = index.updateDisplayedAttributesSettings(setting);
+            this.wait(taskInfo);
         } catch (MeilisearchException e) {
             throw new MSPException(e);
         }
@@ -808,7 +828,8 @@ public interface BaseMapper<T> {
     default void resetDisplayedAttributesSettings() {
         Index index = this.getIndex();
         try {
-            index.resetDisplayedAttributesSettings();
+            TaskInfo taskInfo = index.resetDisplayedAttributesSettings();
+            this.wait(taskInfo);
         } catch (MeilisearchException e) {
             throw new MSPException(e);
         }
@@ -840,7 +861,8 @@ public interface BaseMapper<T> {
     default void updateFilterableAttributesSettings(String[] setting) {
         Index index = this.getIndex();
         try {
-            index.updateFilterableAttributesSettings(setting);
+            TaskInfo taskInfo = index.updateFilterableAttributesSettings(setting);
+            this.wait(taskInfo);
         } catch (MeilisearchException e) {
             throw new MSPException(e);
         }
@@ -854,7 +876,8 @@ public interface BaseMapper<T> {
     default void resetFilterableAttributesSettings() {
         Index index = this.getIndex();
         try {
-            index.resetFilterableAttributesSettings();
+            TaskInfo taskInfo = index.resetFilterableAttributesSettings();
+            this.wait(taskInfo);
         } catch (MeilisearchException e) {
             throw new MSPException(e);
         }
@@ -886,7 +909,8 @@ public interface BaseMapper<T> {
     default void updateDistinctAttributeSettings(String setting) {
         Index index = this.getIndex();
         try {
-            index.updateDistinctAttributeSettings(setting);
+            TaskInfo taskInfo = index.updateDistinctAttributeSettings(setting);
+            this.wait(taskInfo);
         } catch (MeilisearchException e) {
             throw new MSPException(e);
         }
@@ -900,7 +924,8 @@ public interface BaseMapper<T> {
     default void resetDistinctAttributeSettings() {
         Index index = this.getIndex();
         try {
-            index.resetDistinctAttributeSettings();
+            TaskInfo taskInfo = index.resetDistinctAttributeSettings();
+            this.wait(taskInfo);
         } catch (MeilisearchException e) {
             throw new MSPException(e);
         }
@@ -932,7 +957,8 @@ public interface BaseMapper<T> {
     default void updateTypoToleranceSettings(TypoTolerance tolerance) {
         Index index = this.getIndex();
         try {
-            index.updateTypoToleranceSettings(tolerance);
+            TaskInfo taskInfo = index.updateTypoToleranceSettings(tolerance);
+            this.wait(taskInfo);
         } catch (MeilisearchException e) {
             throw new MSPException(e);
         }
@@ -946,7 +972,8 @@ public interface BaseMapper<T> {
     default void resetTypoToleranceSettings() {
         Index index = this.getIndex();
         try {
-            index.resetTypoToleranceSettings();
+            TaskInfo taskInfo = index.resetTypoToleranceSettings();
+            this.wait(taskInfo);
         } catch (MeilisearchException e) {
             throw new MSPException(e);
         }
@@ -969,5 +996,22 @@ public interface BaseMapper<T> {
         return stats;
     }
 
+    /**
+     * Waits for specified task to be accomplished.
+     *
+     * @param taskInfo task to be waited
+     */
+    default void wait(TaskInfo taskInfo) {
+        Properties properties = Properties.getProperties();
+        boolean synchronizeOperations = properties.isSynchronizeOperations();
+        Index index = this.getIndex();
+        try {
+            if (synchronizeOperations) {
+                index.waitForTask(taskInfo.getTaskUid());
+            }
+        } catch (MeilisearchException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
 }

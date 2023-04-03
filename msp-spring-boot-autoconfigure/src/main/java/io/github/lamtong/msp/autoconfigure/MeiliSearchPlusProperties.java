@@ -56,6 +56,11 @@ public class MeiliSearchPlusProperties {
     private boolean autoUpdateSettingsOfIndex = true;
 
     /**
+     * Synchronize operations to {@link com.meilisearch.sdk.Index} or not.
+     */
+    private boolean synchronizeOperations = false;
+
+    /**
      * Host url of {@code MeiliSearch} server.
      */
     private String hostUrl;
@@ -95,6 +100,14 @@ public class MeiliSearchPlusProperties {
 
     public void setAutoUpdatePrimaryKeyOfIndex(boolean autoUpdatePrimaryKeyOfIndex) {
         this.autoUpdatePrimaryKeyOfIndex = autoUpdatePrimaryKeyOfIndex;
+    }
+
+    public boolean isSynchronizeOperations() {
+        return synchronizeOperations;
+    }
+
+    public void setSynchronizeOperations(boolean synchronizeOperations) {
+        this.synchronizeOperations = synchronizeOperations;
     }
 
     public String getHostUrl() {
