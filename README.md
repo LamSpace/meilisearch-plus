@@ -116,7 +116,7 @@ public interface UserMapper extends BaseMapper<User> {
 
 Annotation **@Mapper** is mandatory to required to indicate that **UserMapper** defined above is intending to extend **BaseMapper** provided by **MeiliSearch-Plus**.
 
-==Note== that class which extends **BaseMapper** is supported to be an interface rather a class. **MeiliSearch-Plus**
+**Note** that class which extends **BaseMapper** is supported to be an interface rather a class. **MeiliSearch-Plus**
 will generate corresponding implementations using **javassist** library itself.
 
 Now you can auto-wire **UserMapper** in you code and operate corresponding index with embedded **default** methods
@@ -168,7 +168,7 @@ public interface UserMapper extends BaseMapper<User> {
 }
 ```
 
-==Aware== that any methods defined by yourself must be **default**, and any operations on index **user** rely on **Index** instance provided by **BaseMapper** by calling `this.getIndex()`. 
+**Aware** that any methods defined by yourself must be **default**, and any operations on index **user** rely on **Index** instance provided by **BaseMapper** by calling `this.getIndex()`. 
 
 For more information, see `io.github.lamtong.msp.core.mapper.BaseMapper`.
 
@@ -186,9 +186,9 @@ Now yon can enjoy **MeiliSearch** in your **Spring-Boot** project.
 
 `io.github.lamtong.msp.core.mapper.BaseMapper` is the base mapper interface of **MeiliSearch-Plus** with embedded **CRUD** methods. This interfaces is supported to be extended to operate on index of **MeiliSearch**.
 
-==Note== that almost all methods **MeiliSearch** client is asynchronous except for retrieving documents from index, methods in **BaseMapper** works the same by ignoring **TaskInfo** instance returned by **Index**.
+**Note** that almost all methods **MeiliSearch** client is asynchronous except for retrieving documents from index, methods in **BaseMapper** works the same by ignoring **TaskInfo** instance returned by **Index**.
 
->  ***Synchronous operations will be added soon in the future***.
+>  ***Synchronous operations has be added soon now, under test***.
 
 ---
 
@@ -223,6 +223,14 @@ Now yon can enjoy **MeiliSearch** in your **Spring-Boot** project.
 ---
 
 
+## Prerequisites
+
+OpenJDK 1.8 or above.
+
+SpringBoot 2.7.x, not SpringBoot 3.x.x
+
+---
+
 
 ## Contribute
 
@@ -230,7 +238,7 @@ Pull requests are welcomed!
 
 You can do what you want to with **Apache 2** license.
 
-***Cheers***
+***Cheers !***
 
 ---
 
